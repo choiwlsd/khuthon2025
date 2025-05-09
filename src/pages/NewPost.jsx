@@ -1,22 +1,76 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import styled from "styled-components";
 import Header from "../component/header";
 
-const NewPost = () => {
-  const [uploadedImage, setUploadedImage] = useState(null);
+const API_BASE = "http://34.64.57.155:5500/api";
+const TEMP_FERT_ID = "681df200e946431c23904975";
+const USER_ID = "681de41a3d38382a8024b708";
+const FERT_ID = "681df200e946431c23904975";
 
+const NewPost = () => {
+  const [imageFile, setImageFile] = useState(null); // 서버로 보낼 실제 파일
+  const [previewUrl, setPreviewUrl] = useState(null); // 화면에 미리보기
+  const [title, setTitle] = useState("");
+  const [desc, setDesc] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  /* ─ 비료 정보 ─ */
+  const [fert, setFert] = useState(null); // { price, weightKg, grade }
+
+  /* fertId로 비료 데이터 조회 */
+  useEffect(() => {
+    const fetchFert = async () => {
+      try {
+        const res = await axios.get(`${API_BASE}/fertilizers/${FERT_ID}`);
+        setFert(res.data.data); // { price, weightKg, grade, fertId }
+      } catch (err) {
+        console.error(err);
+        alert("비료 정보를 가져오지 못했어 🥲");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchFert();
+  }, []);
+
+  /* ─ 파일 선택 ───────────────────────────────────────── */
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
-    if (
-      file &&
-      (file.type === "image/png" ||
-        file.type === "image/jpg" ||
-        file.type === "image/jpeg")
-    ) {
-      const imageUrl = URL.createObjectURL(file); // ✅ 브라우저에서 바로 URL 생성
-      setUploadedImage(imageUrl);
+    if (file && ["image/png", "image/jpeg", "image/jpg"].includes(file.type)) {
+      setImageFile(file);
+      setPreviewUrl(URL.createObjectURL(file));
     } else {
       alert("png 또는 jpg 이미지만 업로드 가능합니다.");
+    }
+  };
+
+  /* ─ 업로드 제출 ─────────────────────────────────────── */
+  const handleSubmit = async () => {
+    if (!imageFile || !title.trim() || !desc.trim()) {
+      alert("이미지·제목·설명을 모두 입력해 줘!");
+      return;
+    }
+
+    try {
+      setLoading(true);
+      const form = new FormData();
+      form.append("fertId", TEMP_FERT_ID);
+      form.append("title", title);
+      form.append("description", desc);
+      form.append("image", imageFile); // 파일 직접!
+
+      await axios.post(`${API_BASE}/posts/${USER_ID}`, form, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+
+      alert("업로드 완료! 🎉");
+      // TODO: 업로드 성공 후 페이지 이동 or 상태 초기화
+    } catch (err) {
+      console.error(err);
+      alert("업로드 실패 🥲");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -30,8 +84,8 @@ const NewPost = () => {
         <ContentBox>
           <LeftSection>
             <ImageLabel htmlFor="image-upload">
-              {uploadedImage ? (
-                <PreviewImage src={uploadedImage} alt="uploaded" />
+              {previewUrl ? (
+                <PreviewImage src={previewUrl} />
               ) : (
                 <UploadPlaceholder>사진 업로드</UploadPlaceholder>
               )}
@@ -43,22 +97,29 @@ const NewPost = () => {
               style={{ display: "none" }}
               onChange={handleImageUpload}
             />
-            <PriceInfo>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  width: "400px",
-                }}
-              >
-                <PriceText>38,000원</PriceText>
-                <GradeBadge>A 등급</GradeBadge>
-              </div>
-              <WeightText>280g</WeightText>
-            </PriceInfo>
+            {/* 비료 정보 영역 */}
+            {!loading && fert && (
+              <PriceInfo>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    width: "400px",
+                  }}
+                >
+                  <PriceText>{fert.price.toLocaleString()}원</PriceText>
+                  <GradeBadge>{fert.grade}등급</GradeBadge>
+                </div>
+                <WeightText>{fert.weightKg}kg</WeightText>
+              </PriceInfo>
+            )}
           </LeftSection>
           <RightSection>
-            <Input placeholder="제목을 입력하세요" />
+            <Input
+              placeholder="제목을 입력하세요"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
             <DateRow>
               <DateItem>
                 <DateLabel>발효 시작일</DateLabel>
@@ -69,8 +130,14 @@ const NewPost = () => {
                 <DateValue>25.05.09</DateValue>
               </DateItem>
             </DateRow>
-            <Textarea placeholder="설명을 입력하세요" />
-            <UploadButton>업로드</UploadButton>
+            <Textarea
+              placeholder="설명을 입력하세요"
+              value={desc}
+              onChange={(e) => setDesc(e.target.value)}
+            />
+            <UploadButton onClick={handleSubmit} disabled={loading}>
+              {loading ? "업로드 중..." : "업로드"}
+            </UploadButton>{" "}
           </RightSection>
         </ContentBox>
       </Container>
