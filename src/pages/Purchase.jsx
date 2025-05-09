@@ -1,15 +1,33 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useLocation, useParams } from "react-router-dom";
-
+import { useLocation, useParams } from "react-router-dom";
+import axios from "axios";
 import styled from "styled-components";
 import Header from "../component/header";
-import PostPhoto from "../assets/PostPhoto.png";
+
+const API_BASE = "http://34.64.57.155:5500/api";
+const USER_ID = "681de41a3d38382a8024b708";
 
 const Purchase = () => {
   const { state } = useLocation(); // PostDetail 에서 넘긴 객체
-  const [item, setItem] = useState(state); // state 있으면 바로 사용
+  const [item] = useState(state); // post_id, price, 이미지 등 포함
+  const [paying, setPaying] = useState(false);
 
-  console.log("item:", item);
+  //console.log("item:", item);
+
+  /* 결제(=거래 생성) */
+  const handlePay = async () => {
+    try {
+      setPaying(true);
+      await axios.post(`${API_BASE}/transactions/${item.post_id}/${USER_ID}`);
+      alert("결제 완료! 🎉");
+      // TODO: 필요하면 페이지 이동 or 상태 초기화
+    } catch (e) {
+      console.error(e);
+      alert("결제 실패 🥲 다시 시도해 주세요.");
+    } finally {
+      setPaying(false);
+    }
+  };
 
   return (
     <>
@@ -42,53 +60,56 @@ const Purchase = () => {
             </ItemInfo>
           </ItemContainer>
           <PurchaseLeftContainer>
-          <PurchaseSectionTitle>배송 정보</PurchaseSectionTitle>
-          <ItemContainer>
-            <ShippingForm>
-              <FormGroup>
-                <Label>이름</Label>
-                <SmallInput type="text" placeholder="" />
-              </FormGroup>
+            <PurchaseSectionTitle>배송 정보</PurchaseSectionTitle>
+            <ItemContainer>
+              <ShippingForm>
+                <FormGroup>
+                  <Label>이름</Label>
+                  <SmallInput type="text" placeholder="김진수" />
+                </FormGroup>
 
-              <FormGroup>
-                <Label>배송주소</Label>
-                <InputRow>
+                <FormGroup>
+                  <Label>배송주소</Label>
+                  <InputRow>
+                    <Input
+                      type="text"
+                      placeholder="16710"
+                      style={{ width: "200px" }}
+                    />
+                    <FindZipButton>우편번호 찾기</FindZipButton>
+                  </InputRow>
                   <Input
                     type="text"
-                    placeholder=""
-                    style={{ width: "200px" }}
+                    placeholder="경희대학교 국제캠퍼스 제2기숙사"
                   />
-                  <FindZipButton>우편번호 찾기</FindZipButton>
-                </InputRow>
-                <Input type="text" placeholder="" />
-                <Input type="text" placeholder="" />
-              </FormGroup>
+                  <Input type="text" placeholder="B동 428호" />
+                </FormGroup>
 
-              <FormGroup>
-                <Label>휴대폰</Label>
-                <InputRow>
-                  <Input
-                    type="text"
-                    placeholder=""
-                    style={{ width: "120px" }}
-                  />
-                  <span>-</span>
-                  <Input
-                    type="text"
-                    placeholder=""
-                    style={{ width: "120px" }}
-                  />
-                  <span>-</span>
-                  <Input
-                    type="text"
-                    placeholder=""
-                    style={{ width: "120px" }}
-                  />
-                </InputRow>
-              </FormGroup>
-            </ShippingForm>
-          </ItemContainer>
-        </PurchaseLeftContainer>
+                <FormGroup>
+                  <Label>휴대폰</Label>
+                  <InputRow>
+                    <Input
+                      type="text"
+                      placeholder="010"
+                      style={{ width: "120px" }}
+                    />
+                    <span>-</span>
+                    <Input
+                      type="text"
+                      placeholder="1234"
+                      style={{ width: "120px" }}
+                    />
+                    <span>-</span>
+                    <Input
+                      type="text"
+                      placeholder="1234"
+                      style={{ width: "120px" }}
+                    />
+                  </InputRow>
+                </FormGroup>
+              </ShippingForm>
+            </ItemContainer>
+          </PurchaseLeftContainer>
         </LeftContainer>
 
         <TotalContainer>
@@ -115,7 +136,9 @@ const Purchase = () => {
               <FinalValue>{item.price.toLocaleString()}</FinalValue>
             </SummaryRow>
 
-            <PayButton>결제하기</PayButton>
+            <PayButton onClick={handlePay} disabled={paying}>
+              {paying ? "결제 중..." : "결제하기"}
+            </PayButton>
           </SummaryCol>
         </TotalContainer>
       </Wrapper>
@@ -164,7 +187,7 @@ const ItemContainer = styled.div`
   display: flex;
   gap: 20px;
   padding: 20px 0;
-  border-top: 1.2px solid #F2F2F2;
+  border-top: 1.2px solid #f2f2f2;
 `;
 
 const ItemImg = styled.img`

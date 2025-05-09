@@ -56,6 +56,7 @@ const MainFrame = styled.div`
 const Title = styled.img`
   width: 200px;
   margin-left: 20px;
+  cursor: pointer;
 `;
 
 const NavigatorContainer = styled.div`
