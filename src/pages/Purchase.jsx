@@ -41,38 +41,7 @@ const Purchase = () => {
               </Row>
             </ItemInfo>
           </ItemContainer>
-        </LeftContainer>
-
-        <TotalContainer>
-          <SummaryCol>
-            <SummaryRow>
-              <SummaryLabel>총 상품 금액</SummaryLabel>
-              <SummaryValue>{item.price.toLocaleString()}</SummaryValue>
-            </SummaryRow>
-
-            <SubRow>
-              <SubText>상품 1개</SubText>
-              <SubText>{item.price.toLocaleString()}</SubText>
-            </SubRow>
-
-            <SummaryRow>
-              <SummaryLabel>총 추가 금액</SummaryLabel>
-              <SummaryValue>0원</SummaryValue>
-            </SummaryRow>
-
-            <Divider />
-
-            <SummaryRow>
-              <FinalLabel>최종 결제 금액</FinalLabel>
-              <FinalValue>{item.price.toLocaleString()}</FinalValue>
-            </SummaryRow>
-
-            <PayButton>결제하기</PayButton>
-          </SummaryCol>
-        </TotalContainer>
-      </Wrapper>
-      <PurchaseWrapper>
-        <PurchaseLeftContainer>
+          <PurchaseLeftContainer>
           <PurchaseSectionTitle>배송 정보</PurchaseSectionTitle>
           <ItemContainer>
             <ShippingForm>
@@ -120,7 +89,36 @@ const Purchase = () => {
             </ShippingForm>
           </ItemContainer>
         </PurchaseLeftContainer>
-      </PurchaseWrapper>
+        </LeftContainer>
+
+        <TotalContainer>
+          <SummaryCol>
+            <SummaryRow>
+              <SummaryLabel>총 상품 금액</SummaryLabel>
+              <SummaryValue>{item.price.toLocaleString()}</SummaryValue>
+            </SummaryRow>
+
+            <SubRow>
+              <SubText>상품 1개</SubText>
+              <SubText>{item.price.toLocaleString()}</SubText>
+            </SubRow>
+
+            <SummaryRow>
+              <SummaryLabel>총 추가 금액</SummaryLabel>
+              <SummaryValue>0원</SummaryValue>
+            </SummaryRow>
+
+            <Divider />
+
+            <SummaryRow>
+              <FinalLabel>최종 결제 금액</FinalLabel>
+              <FinalValue>{item.price.toLocaleString()}</FinalValue>
+            </SummaryRow>
+
+            <PayButton>결제하기</PayButton>
+          </SummaryCol>
+        </TotalContainer>
+      </Wrapper>
     </>
   );
 };
@@ -166,7 +164,7 @@ const ItemContainer = styled.div`
   display: flex;
   gap: 20px;
   padding: 20px 0;
-  border-top: 1px solid rgb(255, 83, 83);
+  border-top: 1.2px solid #F2F2F2;
 `;
 
 const ItemImg = styled.img`
@@ -271,6 +269,7 @@ const Divider = styled.hr`
   border: none;
   border-top: 1px solid #eee;
   margin: 10px 0;
+  margin-top: 100px;
 `;
 
 const FinalLabel = styled(SummaryLabel)`
@@ -290,15 +289,6 @@ const PayButton = styled.button`
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
-`;
-
-const PurchaseWrapper = styled.div`
-  display: flex;
-  gap: 60px;
-  margin: 0 0 0 110px; /* 위 여백도 없앰 */
-  padding: 0 200px; /* ← 왼쪽(오른쪽) 여백 맞추기 */
-  width: 1500px;
-  box-sizing: border-box; /* 패딩 포함해서 폭 계산 */
 `;
 
 const PurchaseLeftContainer = styled.div`
