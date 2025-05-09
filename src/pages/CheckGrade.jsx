@@ -43,6 +43,9 @@ const CheckGrade = () => {
         {/* 결과 + 측정완료 버튼 */}
         {measured && (
           <Wrap>
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <h2>AI가 분석한 당신의 비료는..</h2>
+            </div>
             <Container>
               <CustomImage src={Graph} alt="graph" />
               <div style={{ display: "flex", flexDirection: "column" }}>
@@ -166,7 +169,7 @@ const MeasureButton = styled.button`
 const BtnRow = styled.div`
   display: flex;
   gap: 20px;
-  margin-top: 40px;
+  margin-top: 10px;
   justify-content: center;
 `;
 
