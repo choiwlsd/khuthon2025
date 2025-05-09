@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
-import Header from "../component/Header";
-import Sidebar from "../component/Sidebar";
+import Header from "../component/Header.jsx";
+import Sidebar from "../component/Sidebar.jsx";
 import { useNavigate } from "react-router-dom";
 
 const Mainboard = () => {

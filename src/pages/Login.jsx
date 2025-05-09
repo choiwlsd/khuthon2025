@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Header from "../component/Header";
+import Header from "../component/Header.jsx";
 
 const Login = () => {
   return (

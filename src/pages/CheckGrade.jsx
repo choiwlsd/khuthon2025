@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import Header from "../component/Header";
+import Header from "../component/Header.jsx";
 import Graph from "../assets/Graph.png";
 
 const CheckGrade = () => {

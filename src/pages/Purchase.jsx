@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
-import Header from "../component/Header";
+import Header from "../component/Header.jsx";
 
 const API_BASE = "http://34.64.57.155:5500/api";
 const USER_ID = "681de41a3d38382a8024b708";
