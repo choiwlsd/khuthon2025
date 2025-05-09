@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
-import Header from "../component/header";
+import Header from "../component/Header";
 import Khubaby from "../assets/khubaby.png";
 import Trust from "../assets/Trust.png";
 

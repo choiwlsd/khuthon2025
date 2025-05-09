@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
-import Header from "../component/header";
+import Header from "../component/Header";
 import PostPhoto from "../assets/PostPhoto.png";
 import Khubaby from "../assets/khubaby.png";
 import Trust from "../assets/Trust.png";

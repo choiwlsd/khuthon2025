@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
-import Header from "../component/header";
+import Header from "../component/Header";
 
 const API_BASE = "http://34.64.57.155:5500/api";
 const TEMP_FERT_ID = "681df200e946431c23904975";
