@@ -49,6 +49,8 @@ const PostDetail = () => {
   // 로그인 사용자 비교 로직으로 변경해야 함.
   const isMyPost = false;
 
+  console.log(post);
+
   return (
     <>
       <Header />

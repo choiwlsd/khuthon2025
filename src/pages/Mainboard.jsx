@@ -55,6 +55,7 @@ const Mainboard = () => {
             price: f.price ? `${f.price.toLocaleString()}원` : "가격 정보 없음",
             weight: f.weightKg ? `${f.weightKg}kg` : "",
             grade: f.grade ? `${f.grade} 등급` : "",
+            description: p.description,
           };
         });
 
