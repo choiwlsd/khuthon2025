@@ -65,7 +65,7 @@ const Purchase = () => {
               <ShippingForm>
                 <FormGroup>
                   <Label>이름</Label>
-                  <SmallInput type="text" placeholder="김진수" />
+                  <SmallInput type="text" placeholder="김쿠톤" />
                 </FormGroup>
 
                 <FormGroup>

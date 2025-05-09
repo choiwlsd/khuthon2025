@@ -163,7 +163,38 @@ const Profile = () => {
 
         {error && <p>{error}</p>}
         {tab === "JANBAN" ? (
-          <h1 style={{ marginTop: 80 }}>hello world!</h1>
+          <>
+            <h2 style={{ marginTop: 10 }}>🌱 잔반머니</h2>
+            <p style={{ fontSize: "35px", fontWeight: "bold", marginTop: 0 }}>
+              3,500원
+            </p>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-around",
+                gap: "15px",
+              }}
+            >
+              <button
+                style={{
+                  width: "200px",
+                  height: "50px",
+                  backgroundColor: "#FAF4D5",
+                }}
+              >
+                충전
+              </button>
+              <button
+                style={{
+                  width: "200px",
+                  height: "50px",
+                  backgroundColor: "#F3F3F3",
+                }}
+              >
+                송금
+              </button>
+            </div>
+          </>
         ) : loading ? (
           <p style={{ marginTop: 80 }}>불러오는 중...</p>
         ) : (
