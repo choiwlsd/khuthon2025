@@ -4,6 +4,10 @@ import axios from "axios";
 import Header from "../component/Header.jsx";
 import Sidebar from "../component/Sidebar.jsx";
 import { useNavigate } from "react-router-dom";
+import A from "../assets/A.png";
+import B from "../assets/B.png";
+import C from "../assets/C.png";
+import F from "../assets/F.png";
 
 const Mainboard = () => {
   const navigate = useNavigate();
@@ -127,16 +131,18 @@ const Mainboard = () => {
 
                   <GradeBox>{post.grade}</GradeBox>
                 </PriceRow>
-
-                <p
-                  style={{
-                    fontSize: "13px",
-                    fontWeight: "bold",
-                    marginLeft: "5px",
-                  }}
-                >
-                  {post.weight}
-                </p>
+                <PriceRow>
+                  <p
+                    style={{
+                      fontSize: "13px",
+                      fontWeight: "bold",
+                      marginLeft: "5px",
+                    }}
+                  >
+                    {post.weight}
+                  </p>
+                  <img src={A} alt="A" style={{ width: "150px" }} />
+                </PriceRow>
               </Post>
             ))}
           </Grid>
