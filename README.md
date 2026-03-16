@@ -7,5 +7,5 @@
 </p>
 
 <p align="center">
-  📥 <a href="./src/assets/팀이름_최종발표자료.pdf"><b>Go to Whole Presentation (PDF)</b></a>
+  📥 <a href="./src/assets/팀이름_최종발표자료.pdf"><b>Go to Presentation (PDF)</b></a>
 </p>
