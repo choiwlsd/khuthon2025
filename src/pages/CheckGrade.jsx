@@ -56,11 +56,11 @@ const CheckGrade = () => {
                   </Row>
                   <Row>
                     <p>책정 무게:</p>
-                    <Bold>13kg</Bold>
+                    <Bold>12.5kg</Bold>
                   </Row>
                   <Row>
                     <p>책정가:</p>
-                    <Bold>13,000원</Bold>
+                    <Bold>12,500원</Bold>
                   </Row>
                 </div>
 
